@@ -1,25 +1,38 @@
-# from flask import Flask
-# app = Flask(__name__)
-
-
-# @app.route('/')
-# def hello_world():
-#    return 'Hello World’
-
-
-# if __name__ == '__main__':
-#    app.run(debug = True)
-
-
-from flask import Flask
+import os
+from flask import Flask, request
 from dotenv import load_dotenv
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 load_dotenv()
-app = Flask(__name__)
+DATABASE_URI = os.getenv('DATABASE_URI')
 
-@app.route("/")
-def index():
-    return "Hello World!"
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
+
+@app.route('/', methods=['GET'])
+def hello_world():
+   if request.method == 'GET':
+      return "Hello World"
+
+@app.route('/test')
+def test_route():
+   return "TEST ROUTE"
+
+@app.route('/test')
+@app.route('/test/another/<int:user_id>', methods=['GET', 'POST'])
+def another_test_route(user_id):
+   print(user_id)
+   return "ANOTHER TEST ROUTE"
+
+
+if __name__ == '__main__':
+    app.debug = True
+    app.run()
+
 
 # def create_app(test_config=None):
 #     # create and configure the app

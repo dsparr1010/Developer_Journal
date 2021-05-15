@@ -11,14 +11,14 @@ install:
 script:
   - python manage.py test
 
-after_success:
-  - codecov
+# after_success:
+#   - codecov
 
-deploy:
-  provider: pypi
-  user: __token__
-  password: $TEST_PYPI_TOKEN
-  distributions: "sdist bdist_wheel"
-  skip_existing: true
-  on:
-    branch: staging
+# deploy:
+#   provider: pypi
+#   user: __token__
+#   password: $TEST_PYPI_TOKEN
+#   distributions: "sdist bdist_wheel"
+#   skip_existing: true
+#   on:
+#     branch: staging

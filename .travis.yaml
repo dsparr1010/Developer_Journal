@@ -2,13 +2,18 @@ language: python
 python:
   - "3.7"
   - "3.9"
+
+env:
+  - DJANGO_VERSION=3.2.3
+  - DJANGO_SETTINGS_MODULE='developer_journal.settings'
+
 install:
   - pip install -r requirements.txt
   # - pip install codecov
   # - pip install pytest-cov
   # - pip install .
 script:
-  - "python manage.py test"
+  - python manage.py test
 
 # after_success:
 #   - codecov

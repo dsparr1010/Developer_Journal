@@ -1,3 +1,4 @@
+from logging import getLoggerClass
 from pathlib import Path
 
 import os
@@ -8,17 +9,18 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SUPER_SECRET_KEY=os.getenv('SECRET_KEY')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SUPER_SECRET_APP_KEY')
+SECRET_KEY = "rj3vhyKiDRNmth75sxJemvOuTy1Hy0ogeKgS9JP8Gp7dGDctfSMUuOt5QbSpsS9xAlvBMTXW3Z6VTODvvFcV3TmtrZUbGkHBcs8I"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -31,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'developer_journal',
     'repo_connector',
 ]
 
@@ -68,6 +71,11 @@ WSGI_APPLICATION = 'developer_journal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+LOCAL_NAME = os.getenv('LOCAL_NAME')
+LOCAL_USER = os.getenv('LOCAL_USER')
+LOCAL_PASSWORD = os.getenv('LOCAL_PASSWORD')
+LOCAL_HOST = os.getenv('LOCAL_HOST')
+LOCAL_PORT = os.getenv('LOCAL_PORT')
 
 LOCAL_DB = {
     'NAME' : os.getenv('LOCAL_NAME'),

@@ -1,29 +1,24 @@
 os: linux
-
 language: python
 
 python:
-  - "3.6"
-  - "3.7"
   - "3.8"
   - "3.9"
 
-install:
-  - pip install -r requirements.txt
-  # - pip install codecov
-  # - pip install pytest-cov
-  # - pip install .
-# script:
-#   - python manage.py test
+services:
+  - docker
 
-# after_success:
-#   - codecov
+before_script: pip install docker-compose
 
-# deploy:
-#   provider: pypi
-#   user: __token__
-#   password: $TEST_PYPI_TOKEN
-#   distributions: "sdist bdist_wheel"
-#   skip_existing: true
-#   on:
-#     branch: staging
+script:
+  - docker-compose run --rm app sh -c "python manage.py test && flake8"
+
+after_success:
+  - coveralls
+
+
+
+# install: "pip install -r requirements.txt"
+# before_script:
+#   - cp .env.example .env
+#   - python manage.py migrate
